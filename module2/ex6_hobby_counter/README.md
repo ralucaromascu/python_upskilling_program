@@ -1,4 +1,4 @@
-## Hobby counter
+# Hobby counter
 
 This week, we're going to try to create some reports with Python's built-in data structures. For the purposes of this exercise, I'm going to assume that we have a list of dictionaries, in which each dict represents a person. That dict will then have three key-value pairs:
 

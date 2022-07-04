@@ -1,4 +1,4 @@
-## Password checker
+# Password checker
 
 Passwords are a necessary evil in today's world; every app and Web site asks you to create a login, and then to create a password so that you can use that login. (Let's ignore our ability to use Facebook and Twitter to log into numerous sites.)
 

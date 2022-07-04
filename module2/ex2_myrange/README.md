@@ -1,4 +1,4 @@
-## myrange
+# myrange
 
 You're probably familiar with the `range` function in Python. In Python 2, it returns a list:
 

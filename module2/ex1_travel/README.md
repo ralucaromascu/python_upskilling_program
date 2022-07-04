@@ -1,4 +1,4 @@
-## travel
+# travel
 
 This week, we'll explore the built-in data types, seeing how we can store information in them, and then extract information from them, without having to create a new class.
 

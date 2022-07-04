@@ -1,4 +1,4 @@
-## Multiziperator
+# Multiziperator
 
 This week, we'll be writing another generator function. (Oh, goody!) Normally, an iterator returns the elements of its inputs one at a time. This week, I want to take several inputs (similar to `itertools.chain`) but return their elements interleaved (like `zip`).
 

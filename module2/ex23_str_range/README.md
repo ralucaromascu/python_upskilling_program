@@ -1,4 +1,4 @@
-## str_range
+# str_range
 
 One of the things that I like about the Ruby programming language is that it has a `Range` class. Ruby's `Range` objects operate similarly to the output from Python's `range` function, except that they work on more than just numbers. For example, in Ruby, I can iterate over the letters from 'm' to 'z' without having to specify them explicitly.
 
