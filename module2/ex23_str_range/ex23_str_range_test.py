@@ -17,9 +17,19 @@ def test_simple_with_step():
     assert ''.join(list(r)) == 'ac'
 
 
+def test_simple_with_step():
+    r = str_range('a', 'd', 2)
+    assert ''.join(list(r)) == 'ac'
+
+
 def test_simple_with_negativestep():
     r = str_range('c', 'a', -2)
     assert ''.join(list(r)) == 'ca'
+
+
+def test_simple_with_negativestep():
+    r = str_range('d', 'a', -2)
+    assert ''.join(list(r)) == 'db'
 
 
 def test_hebrew():
