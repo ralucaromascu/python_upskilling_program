@@ -31,7 +31,7 @@ e
 %
 ```
 
-In other words: We get the first element of `letters`, then the first element of `numbers`, then the first element of `symbols`. Then the second element of each. Then the third element of each.  And so forth.
+In other words: We get the first element of `letters`, then the first element of `numbers`, then the first element of `symbols`. Then the second element of each. Then the third element of each. And so forth.
 
 You should be able to pass any number of iterables to `multiziperator`. And if they aren't the same length, then the shortest one determines when things stop.
 

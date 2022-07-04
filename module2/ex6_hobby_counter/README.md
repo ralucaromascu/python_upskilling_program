@@ -27,7 +27,7 @@ Given this data (or data like it), I'd like you to produce functions that produc
 
 2. Return a set of the different hobbies enjoyed by people in our database.
 
-3. Return a Counter object indicating how many people have each hobby — that is, how many people are interested in Python, how many enjoy cooking, and so forth.  (I know, in an ideal world, everyone would love Python.  But hey, they're my children, so I'll forgive them.  For now.)
+3. Return a Counter object indicating how many people have each hobby — that is, how many people are interested in Python, how many enjoy cooking, and so forth. (I know, in an ideal world, everyone would love Python. But hey, they're my children, so I'll forgive them. For now.)
 
 4. Return the n most common hobbies, as a list of strings.
 

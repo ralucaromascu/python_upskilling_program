@@ -29,7 +29,7 @@ This week, I want you to implement `myrange`, our own home-grown version of the 
 
 Should you implement it Python 2 style, such that it returns a list, or Python 3 style, such that it returns an iterator?
 
-The answer is: Yes!  I'd like you to implement both, so that you can see the difference between returning a list (potentially long) and returning an iterator.
+The answer is: Yes! I'd like you to implement both, so that you can see the difference between returning a list (potentially long) and returning an iterator.
 
 That is, I'd like you to implement:
 - A function `myrange2` that takes one, two, or three parameters and returns a list that looks like my above examples for Python 2's `range` function.

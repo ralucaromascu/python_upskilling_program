@@ -2,22 +2,22 @@
 
 Unix contains all sorts of great little utilities. Some of these utilities, I've found, are excellent examples of things we can do easily in Python.
 
-This week, we'll look at the `tr` utility that Unix provides. In its most basic form, `tr` allows us to translate from one set of characters to another. For example, if I want every occurrency of "z" in a file to be turned into an "s", then I can do the following:
+This week, we'll look at the `tr` utility that Unix provides. In its most basic form, `tr` allows us to translate from one set of characters to another. For example, if I want every occurrence of "z" in a file to be turned into an "s", then I can do the following:
 ```shell
 $ echo 'the quick brown fox jumps over the lazy dog' | tr z s
 the quick brown fox jumps over the lasy dog
 ```
 
-Notice that `tr` expects to get its input from stdin.  We can modify more than one letter; `tr` only works on individual letters, so we can do the following:
+Notice that `tr` expects to get its input from stdin. We can modify more than one letter; `tr` only works on individual letters, so we can do the following:
 
 ```shell
 $ echo 'the quick brown fox jumps over the lazy dog' | tr sz zs
 the quick brown fox jumpz over the lasy dog
 ```
 
-This turns every occurrence of 'z' into an 's', and vice versa.  Note that this also shows that the translation occurs once per letter.
+This turns every occurrence of 'z' into an 's', and vice versa. Note that this also shows that the translation occurs once per letter.
 
-The same letter can appear in the destination mulitple times:
+The same letter can appear in the destination multiple times:
 
 ```shell
 $ echo 'the quick brown fox jumps over the lazy dog' | tr aeiou yyyyy
