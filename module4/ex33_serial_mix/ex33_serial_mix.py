@@ -22,7 +22,7 @@ class Book(CSVMixin, Serializable):
 
 
 if __name__ == '__main__':
-    b = Book("Practice Makes Python", "Reuven Lerner", 39)
+    b = Book('Practice Makes Python', 'Reuven Lerner', 39)
     b.dump('book.csv')
 
     b2 = Book('blah title', 'blah author', 100)

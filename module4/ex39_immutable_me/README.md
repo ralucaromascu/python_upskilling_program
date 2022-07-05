@@ -10,9 +10,9 @@ Any attempt to change an attribute's value, or to add a new attribute, will resu
 
 ```python
 im = ImmutableMe(x=111,y=222,z=333)
-print(f"Before, vars(im) = {vars(im)}")    # shows x=111, y=222, z=333
+print(f'Before, vars(im) = {vars(im)}')    # shows x=111, y=222, z=333
 im.x = 999            # exception thrown; cannot change an attribute
-im.a = "Hello"        # exception thrown; cannot add an attribute
+im.a = 'Hello'        # exception thrown; cannot add an attribute
 ```
 
 Note that if an attribute is itself mutable, then its contents may be changed.

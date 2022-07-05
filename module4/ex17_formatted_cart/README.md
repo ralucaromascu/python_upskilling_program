@@ -37,7 +37,7 @@ Your cart contains: cucumbers, tissues, tomatoes, toothpaste
 But we can also ask for a `long` report using the format string, as follows:
      
 ```python
-print(f"Your cart:\n{cart:long}")
+print(f'Your cart:\n{cart:long}')
 ```
 
 The results:

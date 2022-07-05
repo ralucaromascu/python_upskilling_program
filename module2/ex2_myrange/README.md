@@ -14,6 +14,7 @@ You're probably familiar with the `range` function in Python. In Python 2, it re
 ```
 
 In Python 3, `range` returns an iterator object — the same sort of object as `xrange` returned in Python 2:
+
 ```shell
 >>> range(5)
 range(0, 5)
@@ -32,8 +33,8 @@ Should you implement it Python 2 style, such that it returns a list, or Python 3
 The answer is: Yes! I'd like you to implement both, so that you can see the difference between returning a list (potentially long) and returning an iterator.
 
 That is, I'd like you to implement:
-- A function `myrange2` that takes one, two, or three parameters and returns a list that looks like my above examples for Python 2's `range` function.
-- A generator function `myrange3` that takes one, two, or three parameters and returns an iterator (well, a generator) that looks like my above examples for Python 3's `range` function. Note that the printed representation doesn't have to look the same.
+- a function `myrange2` that takes one, two, or three parameters and returns a list that looks like my above examples for Python 2's `range` function
+- a generator function `myrange3` that takes one, two, or three parameters and returns an iterator (well, a generator) that looks like my above examples for Python 3's `range` function (note that the printed representation doesn't have to look the same)
 
 In both cases, it should be possible to take the output of calling our function and stick it into a "for" loop:
 

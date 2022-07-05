@@ -17,7 +17,7 @@ class Book(Serializable):
         self.author = author
         self.price = price
 
-b = Book("Practice Makes Python", "Reuven Lerner", 39)
+b = Book('Practice Makes Python', 'Reuven Lerner', 39)
 b.dump('book.data')      # book is now stored on disk, in pickle format
 
 b2 = Book('blah title, 'blah author', 100)
@@ -33,7 +33,7 @@ class Book(CSVMixin, Serializable):
         self.author = author
         self.price = price
 
-b = Book("Practice Makes Python", "Reuven Lerner", 39)
+b = Book('Practice Makes Python', 'Reuven Lerner', 39)
 b.dump('book.csv')      # book is now stored on disk, in CSV format
 
 b2 = Book('blah title', 'blah author', 100)

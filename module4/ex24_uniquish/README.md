@@ -18,7 +18,7 @@ s = {f1, f2, f3}
 
 If we then ask for the value of `s`, we get:
 
-```shell
+```
 {<__main__.Foo at 0x10c3da390>,
  <__main__.Foo at 0x10c481c50>,
  <__main__.Foo at 0x10c481c88>}
@@ -47,7 +47,7 @@ s = {b1, b2, b3}
 
 And when we look at the set, we'll see that they are seen as unique — and thus only one instance appears.
 
-``` shell
+```
 >>> s
 {<__main__.Bar at 0x10c4b0400>}
 ```
