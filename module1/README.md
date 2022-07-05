@@ -1,5 +1,6 @@
 # Module 1 — Getting Started, Basic Syntax and Input/Output
 
+
 ## Topics
 
 - [Zen of Python](https://www.python.org/dev/peps/pep-0020/#id2), [batteries included](https://www.python.org/dev/peps/pep-0206/#batteries-included-philosophy), [Python specifics (whitespace as logic)](https://docs.python.org/3/tutorial/introduction.html#first-steps-towards-programming)
@@ -29,12 +30,38 @@
 - Use of list comprehension, slicing and indexing
 - Use of `range()` and `random` module
 
+
+## Optional video materials
+
+- https://www.pluralsight.com/interactive-courses/python-variables-types-conditionals
+- https://www.pluralsight.com/interactive-courses/python-list-loop-function-data-module
+- https://www.pluralsight.com/courses/python-getting-started
+- https://www.pluralsight.com/courses/python-big-picture
+- https://www.pluralsight.com/courses/learning-programming-abstractions-python
+- https://www.pluralsight.com/courses/python-standard-library-getting-started
+- https://www.pluralsight.com/courses/python-fundamentals
+- https://www.pluralsight.com/courses/python-beyond-basics
+
+
 ## Reading materials
 
 - [Pluralsight Tech Blog | Managing Python Environments](https://www.pluralsight.com/tech-blog/managing-python-environments/)
 - [Download PyCharm: Python IDE for Professional Developers by JetBrains](https://www.jetbrains.com/pycharm/download/)
 - [pyenv/pyenv: Simple Python version management](https://github.com/pyenv/pyenv)
 - [pyenv/pyenv-virtualenv: a pyenv plugin to manage virtualenv (aka python-virtualenv)](https://github.com/pyenv/pyenv-virtualenv)
-- [sys.argv](https://docs.python.org/3/library/sys.html#sys.argv)
-- [Chapters 1-4.5](https://docs.python.org/3/tutorial/index.html)
-- [For details regarding any aspect of the language](https://docs.python.org/3/reference/index.html)
+- https://docs.python.org/3/library/sys.html#sys.argv
+- https://docs.python.org/3/tutorial/index.html (Chapters 1-4.5)
+- https://docs.python.org/3/reference/index.html (for details regarding any aspect of the language)
+
+
+## Practice
+
+- [ ] [Problem 1](https://www.practicepython.org/exercise/2014/01/29/01-character-input.html)
+- [ ] [Problem 2](https://www.practicepython.org/exercise/2014/02/05/02-odd-or-even.html)
+- [ ] [Problem 3](https://www.practicepython.org/exercise/2014/02/15/03-list-less-than-ten.html)
+- [ ] [Problem 4](https://www.practicepython.org/exercise/2014/02/26/04-divisors.html)
+- [ ] [Problem 5](https://www.practicepython.org/exercise/2014/03/05/05-list-overlap.html)
+- [ ] [Problem 6](https://www.practicepython.org/exercise/2014/03/12/06-string-lists.html)
+- [ ] [Problem 7](https://www.practicepython.org/exercise/2014/03/19/07-list-comprehensions.html)
+- [ ] [Problem 8](https://www.practicepython.org/exercise/2014/03/26/08-rock-paper-scissors.html)
+- [ ] [Problem 9](https://www.practicepython.org/exercise/2014/04/02/09-guessing-game-one.html)

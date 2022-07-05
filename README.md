@@ -5,15 +5,6 @@
 ## Modules
 
 * [Module 1](module1)
-    - [ ] [Problem 1](https://www.practicepython.org/exercise/2014/01/29/01-character-input.html)
-    - [ ] [Problem 2](https://www.practicepython.org/exercise/2014/02/05/02-odd-or-even.html)
-    - [ ] [Problem 3](https://www.practicepython.org/exercise/2014/02/15/03-list-less-than-ten.html)
-    - [ ] [Problem 4](https://www.practicepython.org/exercise/2014/02/26/04-divisors.html)
-    - [ ] [Problem 5](https://www.practicepython.org/exercise/2014/03/05/05-list-overlap.html)
-    - [ ] [Problem 6](https://www.practicepython.org/exercise/2014/03/12/06-string-lists.html)
-    - [ ] [Problem 7](https://www.practicepython.org/exercise/2014/03/19/07-list-comprehensions.html)
-    - [ ] [Problem 8](https://www.practicepython.org/exercise/2014/03/26/08-rock-paper-scissors.html)
-    - [ ] [Problem 9](https://www.practicepython.org/exercise/2014/04/02/09-guessing-game-one.html)
 * [Module 2](module2)
     - [ ] [Exercise #1 — Travel](module2/ex1_travel)
     - [ ] [Exercise #2 — myrange](module2/ex2_myrange)
