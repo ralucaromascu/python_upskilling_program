@@ -5,8 +5,32 @@ def file_length(filename):
     return os.stat(filename).st_size
 
 
-def filefunc():
-    pass
+def filefunc(dir_path, os_command):
+    success = {}
+    failure = {}
+    obj = os.scandir(dir_path)
+    for entry in obj:
+        if entry.is_file():
+            try:
+                success[entry.name] = os_command(entry)
+            except Exception as e:
+                failure[entry.name] = e
+
+    return success, failure
+
+
+def filefunc_recursively(dir_path, os_command):
+    success_rec = {}
+    failure_rec = {}
+    obj = os.walk(dir_path, topdown=True)
+    for root, dirs, files in obj:
+        for entry in files:
+            try:
+                success_rec[entry] = os_command(os.path.join(root, entry))
+            except Exception as e:
+                failure_rec[entry] = e
+
+    return success_rec, failure_rec
 
 
 if __name__ == '__main__':
