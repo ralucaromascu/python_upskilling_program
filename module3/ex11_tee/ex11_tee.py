@@ -18,8 +18,8 @@ class Tee(object):
             one_file.write(text)
 
     def writelines(self, list_text):
+        new_list = [line+"\n" for line in list_text[:-1]] + [list_text[-1]]
         for one_file in self.fds:
-            new_list = [line+"\n" for line in list_text[:-1]] + [list_text[-1]]
             one_file.writelines(new_list)
 
 
@@ -31,4 +31,4 @@ if __name__ == '__main__':
         t.write('abc\n')
         t.write('def\n')
         t.write('ghi\n')
-        t.writelines(["text1 ", "text2"])
+        t.writelines(['text1', 'text2'])
