@@ -24,11 +24,11 @@ def filefunc_recursively(dir_path, os_command):
     failure_rec = {}
     obj = os.walk(dir_path, topdown=True)
     for root, dirs, files in obj:
-        for entry in files:
+        for file in files:
             try:
-                success_rec[entry] = os_command(os.path.join(root, entry))
+                success_rec[file] = os_command(os.path.join(root, file))
             except Exception as e:
-                failure_rec[entry] = e
+                failure_rec[file] = e
 
     return success_rec, failure_rec
 
