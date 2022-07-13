@@ -1,22 +1,24 @@
 import random
+
 MIN = -40
 MAX = 40
 NR_LINES = 100
-WIDTH = max(len(str(MIN)), len(str(MAX)))+2
+WIDTH = max(len(str(MIN)), len(str(MAX))) + 1
 
 
 def create_math_problems(tmp_path):
     my_file = open(tmp_path, 'w')
     index = 0
-
     for one_line in range(NR_LINES):
         index += 1
         nr_1 = random.randint(MIN, MAX)
         nr_2 = random.randint(-40, 40)
         nr_3 = random.randint(-40, 40)
         nr_4 = random.randint(-40, 40)
-        rand_sign = "+" if random.randint(0, 1) == 0 else "-"
-        line = "["+str(index).rjust(3)+"]"+str(nr_1).rjust(5)+" "+rand_sign+" " + "("+str(nr_2).rjust(4)+")" + " " + rand_sign+" " + "("+str(nr_3).rjust(4)+")" + " "+rand_sign+" " + "("+str(nr_4).rjust(4)+") = ______\n"
+        line = f"[{index:{3}}] {nr_1:{WIDTH}}" \
+               f" {random.choice(['+', '-'])} ({nr_2:{WIDTH}})" \
+               f" {random.choice(['+', '-'])} ({nr_3:{WIDTH}})" \
+               f" {random.choice(['+', '-'])} ({nr_4:{WIDTH}}) = ______\n"
         my_file.write(line)
 
 
