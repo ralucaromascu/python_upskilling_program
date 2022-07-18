@@ -4,7 +4,6 @@ Person = namedtuple('Person', ['first', 'last'])
 
 
 class TableFull(Exception):
-    """Raised when """
     pass
 
 
@@ -16,24 +15,24 @@ class GuestList:
         self.tables = {}
 
     def __len__(self):
-        return len(self.persons.keys())
+        return len(self.persons)
 
     def add_to_table(self, person, table_number):
         if table_number:
-            if table_number in self.tables.keys():
+            if table_number in self.tables:
                 self.tables[table_number].append(person)
                 if len(self.tables[table_number]) > self.max_at_table:
                     raise TableFull("Table is already full")
             else:
                 self.tables[table_number] = [person]
         else:
-            if 'unassigned' in self.tables.keys():
+            if 'unassigned' in self.tables:
                 self.tables['unassigned'].append(person)
             else:
                 self.tables['unassigned'] = [person]
 
     def assign(self, person, table_number):
-        if person in self.persons.keys():
+        if person in self.persons:
             self.tables[self.persons.get(person)].remove(person)
             self.add_to_table(person, table_number)
         else:
@@ -48,14 +47,12 @@ class GuestList:
         return self.tables['unassigned']
 
     def free_space(self):
-        new_dict = {key: self.max_at_table - len(self.tables[key]) for key in self.tables}
-        return new_dict
+        return {key: self.max_at_table - len(self.tables[key]) for key in self.tables}
 
     def guests(self):
         dict_tables = {key: sorted(self.tables[key], key=lambda person: (person.last, person.first))
                        for key in self.tables if type(key) == int}
-        guests_list = [item for persons in [dict_tables[key] for key in sorted(dict_tables.keys())] for item in persons]
-        return guests_list
+        return [item for persons in [dict_tables[key] for key in sorted(dict_tables.keys())] for item in persons]
 
     def __str__(self):
         text = ""
