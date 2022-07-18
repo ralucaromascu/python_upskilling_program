@@ -17,8 +17,7 @@ class Uniquish:
             return self.__dict__ == other.__dict__
 
     def __hash__(self):
-        my_str_list = [str(item) for item in self.__dict__.values()]
-        return hash(tuple(my_str_list))
+        return hash(tuple((attr, str(value), type(value)) for attr, value in self.__dict__ .items()))
 
 
 class Bar(Uniquish):
