@@ -9,14 +9,14 @@ class LogDicts:
                            }
                 self.list_of_dicts.append(my_dict)
 
-    def dicts(self, key):
+    def dicts(self, key=None):
         if key:
             new_list = sorted(self.list_of_dicts, key=key)
             return new_list
         else:
             return self.list_of_dicts
 
-    def iterdicts(self, key):
+    def iterdicts(self, key=None):
         new_list = self.list_of_dicts
         if key:
             new_list = sorted(self.list_of_dicts, key=key)
@@ -31,14 +31,14 @@ class LogDicts:
         ordered_list = sorted(self.list_of_dicts, key=lambda d: d['timestamp'])
         return ordered_list[-1]
 
-    def for_ip(self, ip_address, key):
+    def for_ip(self, ip_address, key=None):
         new_list = self.list_of_dicts
         if key:
             new_list = sorted(self.list_of_dicts, key=key)
         my_ip_list = [item for item in new_list if item['ip_address'] == ip_address]
         return my_ip_list
 
-    def for_request(self, text, key):
+    def for_request(self, text, key=None):
         new_list = self.list_of_dicts
         if key:
             new_list = sorted(self.list_of_dicts, key=key)

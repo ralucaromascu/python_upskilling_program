@@ -6,7 +6,7 @@ logfilename = 'mini-access-log.txt'
 
 def test_dicts_returns_list_of_dicts():
     ld = ex4_loglistclass.LogDicts(logfilename)
-    result = ld.dicts(key=None)
+    result = ld.dicts()
     assert type(result) == list
     assert all([type(one_item) == dict
                 for one_item in result])
@@ -14,7 +14,7 @@ def test_dicts_returns_list_of_dicts():
 
 def test_iterdicts_returns_iterator_dicts():
     ld = ex4_loglistclass.LogDicts(logfilename)
-    result = ld.iterdicts(key=None)
+    result = ld.iterdicts()
     assert iter(result) == result
 
     result_list = list(result)
@@ -59,7 +59,7 @@ def test_latest():
 
 def test_for_ip():
     ld = ex4_loglistclass.LogDicts(logfilename)
-    matching_requests = ld.for_ip("65.55.106.183", key=None)
+    matching_requests = ld.for_ip("65.55.106.183")
     assert len(matching_requests) == 2
     assert all([one_item['ip_address'] == '65.55.106.183'
                 for one_item in matching_requests])
@@ -67,7 +67,7 @@ def test_for_ip():
 
 def test_for_request():
     ld = ex4_loglistclass.LogDicts(logfilename)
-    matching_requests = ld.for_request("/robots.txt", key=None)
+    matching_requests = ld.for_request("/robots.txt")
     assert len(matching_requests) == 16
     assert all(['/robots.txt' in one_item['request']
                 for one_item in matching_requests])
