@@ -1,10 +1,10 @@
 import pytest
-from ex39_immutable_me import ImmutableParent, ImmutableMeansImmutableError
+from ex39_immutable_me import ImmutableParent, ImmutableMe, ImmutableMeansImmutableError
 
 
 def test_immutable():
-    class ImmutableMe(ImmutableParent):
-        pass
+    # class ImmutableMe(ImmutableParent):
+    #     pass
 
     im = ImmutableMe(x=111, y=222, z=[10, 20, 30])
     print(f"Before, vars(im) = {vars(im)}")
