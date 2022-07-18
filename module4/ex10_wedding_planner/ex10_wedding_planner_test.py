@@ -22,7 +22,7 @@ def some_people():
 def populated_tables(some_people):
     gl = GuestList()
     for table_number, one_person in enumerate(some_people):
-        gl.assign(one_person, table_number+1)
+        gl.assign(one_person, table_number)
     return gl
 
 

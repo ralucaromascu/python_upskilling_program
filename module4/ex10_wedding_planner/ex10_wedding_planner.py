@@ -18,7 +18,7 @@ class GuestList:
         return len(self.persons)
 
     def add_to_table(self, person, table_number):
-        if table_number:
+        if table_number is not None:
             if table_number in self.tables:
                 self.tables[table_number].append(person)
                 if len(self.tables[table_number]) > self.max_at_table:
@@ -88,3 +88,4 @@ if __name__ == '__main__':
     print(gl.free_space())
     print(gl.guests())
     print(gl)
+
