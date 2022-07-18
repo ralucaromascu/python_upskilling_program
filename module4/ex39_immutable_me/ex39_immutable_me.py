@@ -3,8 +3,8 @@ class ImmutableMeansImmutableError(Exception):
 
 
 class ImmutableParent:
-    def __init__(self, attributes):
-        for key, value in attributes:
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
             self.__dict__[key] = value
 
     def __setattr__(self, key, value):
@@ -15,8 +15,7 @@ class ImmutableParent:
 
 
 class ImmutableMe(ImmutableParent):
-    def __init__(self, **kwargs):
-        super(ImmutableMe, self).__init__(kwargs.items())
+    pass
 
 
 if __name__ == '__main__':
