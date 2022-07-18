@@ -1,4 +1,5 @@
 from collections import namedtuple
+from operator import attrgetter
 
 Person = namedtuple('Person', ['first', 'last'])
 
@@ -17,12 +18,12 @@ class GuestList:
     def __len__(self):
         return len(self.persons)
 
-    def add_to_table(self, person, table_number):
+    def _add_to_table(self, person, table_number):
         if table_number is not None:
             if table_number in self.tables:
                 self.tables[table_number].append(person)
-                if len(self.tables[table_number]) > self.max_at_table:
-                    raise TableFull("Table is already full")
+                # if len(self.tables[table_number]) > self.max_at_table:
+                #     raise TableFull("Table is already full")
             else:
                 self.tables[table_number] = [person]
         else:
@@ -32,13 +33,16 @@ class GuestList:
                 self.tables['unassigned'] = [person]
 
     def assign(self, person, table_number):
+        if table_number is not None and table_number in self.tables:
+            if len(self.tables[table_number]) >= self.max_at_table:
+                raise TableFull("Table is already full")
         if person in self.persons:
             self.tables[self.persons.get(person)].remove(person)
-            self.add_to_table(person, table_number)
+            self._add_to_table(person, table_number)
         else:
 
             self.persons[person] = table_number
-            self.add_to_table(person, table_number)
+            self._add_to_table(person, table_number)
 
     def table(self, table_number):
         return self.tables[table_number]
@@ -50,7 +54,7 @@ class GuestList:
         return {key: self.max_at_table - len(self.tables[key]) for key in self.tables}
 
     def guests(self):
-        dict_tables = {key: sorted(self.tables[key], key=lambda person: (person.last, person.first))
+        dict_tables = {key: sorted(self.tables[key], key=attrgetter('last', 'first'))
                        for key in self.tables if type(key) == int}
         return [item for persons in [dict_tables[key] for key in sorted(dict_tables.keys())] for item in persons]
 
