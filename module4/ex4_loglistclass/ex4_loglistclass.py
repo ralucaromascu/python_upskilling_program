@@ -1,3 +1,6 @@
+import time
+
+
 class LogDicts:
     def __init__(self, filename):
         self.list_of_dicts = []
@@ -24,12 +27,11 @@ class LogDicts:
             yield one_dict
 
     def earliest(self):
-        ordered_list = sorted(self.list_of_dicts, key=lambda d: d['timestamp'])
-        return ordered_list[0]
+        return sorted(self.list_of_dicts, key=lambda d: time.strptime(d['timestamp'], '%d/%b/%Y:%H:%M:%S %z'))[0]
 
     def latest(self):
-        ordered_list = sorted(self.list_of_dicts, key=lambda d: d['timestamp'])
-        return ordered_list[-1]
+        return sorted(self.list_of_dicts, key=lambda d: time.strptime(d['timestamp'], '%d/%b/%Y:%H:%M:%S %z'))[-1]
+
 
     def for_ip(self, ip_address, key=None):
         new_list = self.list_of_dicts
@@ -63,4 +65,3 @@ if __name__ == '__main__':
 
 
     print(ld.dicts(key=by_ip_address))
-    print("test pull request")
