@@ -13,26 +13,26 @@ class ThresholdEqual:
         return self.x - other.x > 0 and abs(self.x - other.x) > self.tolerance
 
     def __add__(self, other):
-        return ThresholdEqual(self.x + other.x)
+        return self.x + other.x
 
     def __iadd__(self, other):
         self.x += other.x
         return self
 
     def __sub__(self, other):
-        return ThresholdEqual(self.x - other.x)
+        return self.x - other.x
 
     def __mul__(self, other):
-        return ThresholdEqual(self.x * other.x)
+        return self.x * other.x
 
     def __truediv__(self, other):
-        return ThresholdEqual(self.x / other.x)
+        return self.x / other.x
 
     def __mod__(self, other):
-        return ThresholdEqual(self.x % self.x)
+        return self.x % self.x
 
     def __pow__(self, other, modulo=None):
-        return ThresholdEqual(pow(self.x, other.x))
+        return pow(self.x, other.x)
 
 
 if __name__ == '__main__':
