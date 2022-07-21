@@ -17,9 +17,19 @@ class DirFileHash:
                     except IOError as e:
                         print(e)
 
-    def __getitem__(self, item):
-        if item in self.files:
-            return self.files[item]
+    # def __getitem__(self, item):
+    #     if item in self.files:
+    #         return self.files[item]
+    def __getitem__(self, filename):
+        full_path = os.path.join(self.dirname, filename)
+        if os.path.isfile(full_path):
+            with open(full_path, 'rb') as f:
+                read_content = f.read()
+            m = hashlib.md5()
+            m.update(read_content)
+            hash_value = m.hexdigest()
+            # self.files[] = hash_value
+            return hash_value
 
 
 if __name__ == '__main__':
