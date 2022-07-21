@@ -73,7 +73,7 @@ def test_table_free_space(some_people):
     for one_person in some_people[:GuestList.max_at_table - 1]:
         gl.assign(one_person, 1)
     assert (gl.free_space()) == {1: 1}
-
+    one_person = some_people[1]
     gl.assign(one_person, 2)
     assert (gl.free_space()) == {1: 2, 2: GuestList.max_at_table - 1}
 

@@ -27,3 +27,8 @@ def test_is_iterator():
 def test_impossible():
     result = list(magic_tuples(100, 3))
     assert len(result) == 0
+
+
+def test_impossible2():
+    result = list(magic_tuples(5, 10))
+    assert len(result) == 4

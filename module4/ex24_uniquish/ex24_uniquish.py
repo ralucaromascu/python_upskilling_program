@@ -2,9 +2,22 @@ class Foo:
     def __init__(self, x):
         self.x = x
 
+    def __eq__(self, other):
+        if type(other) is type(self):
+            return self.x == other.x
+        return False
+
+    def __hash__(self):
+        return hash(self.x)
+
 
 class Uniquish:
-    pass
+    def __eq__(self, other):
+        if type(self) == type(other):
+            return self.__dict__ == other.__dict__
+
+    def __hash__(self):
+        return hash(tuple((attr, str(value), type(value)) for attr, value in self.__dict__ .items()))
 
 
 class Bar(Uniquish):
