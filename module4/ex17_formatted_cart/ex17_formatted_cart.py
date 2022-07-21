@@ -12,7 +12,7 @@ class Cart:
         elif format_spec == 'long':
             return '\n'.join(str(item) for item in sorted(self.items, key=lambda x: x.name))
         else:
-            raise TypeError("unsupported format string passed to Cart.__format__")
+            raise TypeError('unsupported format string passed to Cart.__format__')
 
 
 class Item:
@@ -20,14 +20,14 @@ class Item:
         self.quantity = quantity
         self.measure = measure
         self.name = name
-        if type(price) == int:
+        try:
             self.price = float(price)
-        else:
-            raise ValueError("price attribute is not a number")
+        except ValueError as e:
+            print(e)
 
     def __str__(self):
-        return f"{self.quantity:5} {self.measure:5} {self.name:10} @ ${self.price}...$" \
-               f"{self.quantity*self.price}"
+        return f'{self.quantity:5} {self.measure:5} {self.name:10} @ ${self.price}...$' \
+               f'{self.quantity*self.price}'
 
 
 if __name__ == '__main__':
@@ -38,4 +38,3 @@ if __name__ == '__main__':
     cart.add(Item(1, 'box', 'tissues', 4))
     print(f'Your cart contains: {cart:short}')
     print(f'Your cart:\n{cart:long}')
-    cart.add(Item(7, 'box', 'tissues', 'free'))
