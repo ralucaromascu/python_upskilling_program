@@ -1,4 +1,6 @@
 import time
+from math import trunc
+
 start_time = 0
 is_first_time = True
 
@@ -18,7 +20,7 @@ def once_per_minute(func):
         print(actual_time)
         print(start_time)
         time_diff = actual_time-start_time
-        if int(time_diff) % 60 != 0:
+        if trunc(time_diff) % 60 != 0:
             raise TooSoonError(f'Too soon: Wait another {60 - time_diff % 60} seconds')
         else:
             func(*args, **kwargs)
