@@ -1,3 +1,5 @@
+import os
+
 def get_file_info():
     pass
 
