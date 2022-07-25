@@ -1,5 +1,6 @@
 import hashlib
 import os
+import time
 
 
 def get_sha1(pathfile):
@@ -21,6 +22,7 @@ class FileList:
                 pathfile = os.path.join(root, file)
                 file_info = os.stat(pathfile)
                 self.all_file_infos.append(FileInfo(file, file_info.st_mtime, get_sha1(pathfile)))
+        self.last_timestamp = time.time()
 
     def rescan(self):
         update_dict = {'added': [], 'removed': [], 'changed': []}
@@ -40,7 +42,17 @@ class FileList:
             for file_obj2 in self.all_file_infos:
                 if file_obj1 == file_obj2 and getattr(file_obj1, 'sha1') != getattr(file_obj2, 'sha1'):
                     update_dict['changed'].append(getattr(file_obj1, 'filename'))
+        self.all_file_infos = new_files_list
+        self.last_timestamp = time.time()
         return update_dict
+
+    def restore_from_timestamp(self, timestamp):
+        pass
+
+    def save_on_disk(self):
+        self.rescan()
+        # save on disk with last timestamp
+        pass
 
 
 class FileInfo:
@@ -57,4 +69,11 @@ class FileInfo:
 
 
 if __name__ == '__main__':
-    pass
+    fd = FileList(os.getcwd())
+    fd.scan()
+    print(str(fd.last_timestamp))
+    with open("new_fileee.txt", 'w') as new_f:
+        new_f.write("haha")
+    time.sleep(3)
+    fd.rescan()
+    print(str(fd.last_timestamp))
