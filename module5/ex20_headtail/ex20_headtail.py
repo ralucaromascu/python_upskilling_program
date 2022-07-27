@@ -2,35 +2,25 @@ import argparse
 import os
 
 
-def head(given_file, nr_lines):
-    print(f'First {nr_lines} from {os.path.basename(given_file)}:')
-    with open(given_file, 'r') as f:
-        lines = f.readlines()
-    print(*lines[:nr_lines], sep='')
-
-
-def tail(given_file, nr_lines):
-    print(f'Last {nr_lines} from {os.path.basename(given_file)}:')
-    with open(given_file, 'r') as f:
-        lines = f.readlines()
-    print(*lines[-nr_lines:], sep='')
-
-
 def headtail():
     my_parser = argparse.ArgumentParser()
     my_parser.add_argument('-f', '--file', help="file to read", required=True, type=str)
 
-    my_parser.add_argument('-s', '--start', help="number of lines to read from head of the file", nargs='?', const=3,
+    my_parser.add_argument('-s', '--start', help="number of lines to read from head of the file", default=3,
                            type=int)
-    my_parser.add_argument('-e', '--end', help="number of lines to read from head of the file", nargs='?', const=3,
+    my_parser.add_argument('-e', '--end', help="number of lines to read from head of the file", default=3,
                            type=int)
 
     args = my_parser.parse_args()
     print(args)
-    if args.start:
-        head(args.file, args.start)
-    if args.end:
-        tail(args.file, args.end)
+    if args.start < 0 or args.end < 0:
+        raise ValueError("values for arguments -s/--start and -e/--end should be positive numbers")
+    with open(args.file, 'r') as f:
+        lines = f.readlines()
+    print(f'First {args.start} from {os.path.basename(args.file)}:')
+    print(*lines[:args.start], sep='')
+    print(f'Last {args.end} from {os.path.basename(args.file)}:')
+    print(*lines[-args.end:], sep='')
 
 
 if __name__ == '__main__':
