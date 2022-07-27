@@ -46,14 +46,6 @@ class FileList:
         self.last_timestamp = time.time()
         return update_dict
 
-    def restore_from_timestamp(self, timestamp):
-        pass
-
-    def save_on_disk(self):
-        self.rescan()
-        # save on disk with last timestamp
-        pass
-
 
 class FileInfo:
     def __init__(self, filename, mtime, sha1):
