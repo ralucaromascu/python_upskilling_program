@@ -4,27 +4,22 @@ from threading import Thread
 from queue import Queue
 
 
-def count_words_file(file_name, q):
+def count_words_file(file_name, q=None):
     with open(file_name, 'r') as f:
         read_data = f.read()
-    q.put(len(read_data.split()))
-    q.task_done()
-
-
-def queue_sum(q):
-    total = 0
-    while not q.empty():
-        total += q.get()
-    return total
+    if q:
+        q.put(len(read_data.split()))
+        q.task_done()
+    return len(read_data.split())
 
 
 def count_words_sequential(pathname_pattern):
-    my_queue = Queue()
+    total = 0
     files_list = glob.glob(pathname_pattern)
     files_list = [file for file in files_list if os.path.isfile(file)]
     for file in files_list:
-        count_words_file(file, my_queue)
-    return queue_sum(my_queue)
+        total = total + count_words_file(file)
+    return total
 
 
 def count_words_threading(pathname_pattern):
@@ -36,8 +31,9 @@ def count_words_threading(pathname_pattern):
         new_thread.start()
         new_thread.join()
     my_queue.join()
-    return queue_sum(my_queue)
+    return sum([my_queue.get() for _ in range(len(files_list))])
 
 
 if __name__ == '__main__':
+    print(count_words_sequential('*.txt'))
     print(count_words_threading('*.txt'))
