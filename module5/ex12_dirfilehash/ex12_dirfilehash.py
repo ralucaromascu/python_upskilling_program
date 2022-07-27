@@ -5,7 +5,6 @@ import os
 class DirFileHash:
     def __init__(self, dir_name):
         self.dirname = dir_name
-        self.files = {}
 
     def __getitem__(self, filename):
         full_path = os.path.join(self.dirname, filename)
