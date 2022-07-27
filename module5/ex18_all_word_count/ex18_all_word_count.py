@@ -1,41 +1,42 @@
 import glob
+import os
 from threading import Thread
 from queue import Queue
 
 
-def count_words_sequential(pathname_pattern):
-    total = 0
-    files_list = glob.glob(pathname_pattern)
-    print(files_list)
-    for one_file in files_list:
-        with open(one_file, 'r') as f:
-            read_data = f.read()
-        words = read_data.split()
-        total += len(words)
-    return total
-
-
-def one_file_count(file_name, q):
-    # while True:
+def count_words_file(file_name, q):
     with open(file_name, 'r') as f:
         read_data = f.read()
     q.put(len(read_data.split()))
     q.task_done()
 
 
-def count_words_threading(pathname_pattern):
+def queue_sum(q):
     total = 0
+    while not q.empty():
+        total += q.get()
+    return total
+
+
+def count_words_sequential(pathname_pattern):
     my_queue = Queue()
     files_list = glob.glob(pathname_pattern)
-    print(files_list)
+    files_list = [file for file in files_list if os.path.isfile(file)]
+    for file in files_list:
+        count_words_file(file, my_queue)
+    return queue_sum(my_queue)
+
+
+def count_words_threading(pathname_pattern):
+    my_queue = Queue()
+    files_list = glob.glob(pathname_pattern)
+    files_list = [file for file in files_list if os.path.isfile(file)]
     for one_file in files_list:
-        new_thread = Thread(target=one_file_count(one_file, my_queue))
-        new_thread.setDaemon(True)
+        new_thread = Thread(target=count_words_file, args=(one_file, my_queue))
         new_thread.start()
+        new_thread.join()
     my_queue.join()
-    while not my_queue.empty():
-        total += my_queue.get()
-    return total
+    return queue_sum(my_queue)
 
 
 if __name__ == '__main__':
