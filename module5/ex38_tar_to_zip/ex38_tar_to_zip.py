@@ -3,6 +3,10 @@ import tarfile
 import zipfile
 
 
+class NotTarFile(Exception):
+    pass
+
+
 def create_tarfile(tarfile_name):
     for index, letter in enumerate('abcde', 1):
         with open(os.path.join(os.getcwd(), f'{letter * index}.txt'), 'w') as f:
@@ -16,17 +20,22 @@ def create_tarfile(tarfile_name):
     return tf
 
 
-def tar_to_zip(*tarfiles, zippath=None):
+def tar_to_zip(*tar_files, zippath=None):
     if zippath is None:
         zippath = os.getcwd()
-    for one_tarfile in tarfiles:
-        prefix = str(one_tarfile).split('.tar', 1)[0]
-        print(one_tarfile)
-        tar = tarfile.open(one_tarfile)
+    for tar_file in tar_files:
+        if not os.path.exists(os.path.join(os.getcwd(), tar_file)):
+            raise FileNotFoundError
+        if not tarfile.is_tarfile(tar_file):
+            raise NotTarFile(f"{tar_file} is not a tar file.")
+        prefix = str(tar_file).rsplit('.', 1)[0]
+        print(prefix)
+        print(tar_file)
+        tar = tarfile.open(tar_file)
         tar.extractall(prefix)
         tar.close()
 
-        with zipfile.ZipFile(f'{prefix}.zip', 'w') as zipObj:
+        with zipfile.ZipFile(f'{os.path.join(zippath, prefix)}.zip', 'w') as zipObj:
             for folderName, subfolders, filenames in os.walk(prefix):
                 for filename in filenames:
                     file_path = os.path.join(folderName, filename)
@@ -37,4 +46,5 @@ if __name__ == '__main__':
     # create_tarfile('foo.tar')
     # create_tarfile('bar.tar.gz')
     # create_tarfile('baz.tar.bz2')
-    tar_to_zip('foo.tar', 'bar.tar.gz', 'baz.tar.bz2')
+    tar_to_zip('foo.tar', 'bar.tar.gz', 'baz.tar.bz2', 'test.txt',
+               zippath="/Users/raluca.romascu/python_upskilling_program/module5/ex38_tar_to_zip/test_zippath")
