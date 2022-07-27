@@ -22,8 +22,6 @@ def once_per_minute(func):
         time_diff = actual_time-start_time
         if trunc(time_diff) % 60 != 0:
             raise TooSoonError(f'Too soon: Wait another {60 - time_diff % 60} seconds')
-        else:
-            func(*args, **kwargs)
         return func(*args, **kwargs)
     return wrapper
 
