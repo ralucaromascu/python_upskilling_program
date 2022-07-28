@@ -1,15 +1,13 @@
 import os
 
 from flask import Flask, request
-from markupsafe import escape
 
 app = Flask(__name__)
 
 
 @app.route("/scan")
 def scan():
-    dir_path = request.args.get('dirpath')
-    print(dir_path)
+    dir_path = request.args['dirpath']
     if not os.path.isdir(dir_path):
         return f'The given directory is not a valid one.'
     else:
