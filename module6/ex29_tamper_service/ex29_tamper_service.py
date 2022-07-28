@@ -1,10 +1,9 @@
 import hashlib
-import json
 import os
 import pickle
 import time
 
-from flask import Flask, request
+from flask import Flask, request, jsonify, abort
 
 
 def get_sha1(pathfile):
@@ -37,11 +36,21 @@ class FileList:
 app = Flask(__name__)
 
 
+@app.errorhandler(404)
+def resource_not_found(e):
+    return jsonify(error=str(e)), 404
+
+
+@app.errorhandler(412)
+def precondition_failed(e):
+    return jsonify(error=str(e)), 412
+
+
 @app.route("/scan")
 def scan():
     dir_path = request.args['dirpath']
     if not os.path.isdir(dir_path):
-        return f'The given directory is not a valid one.'
+        abort(404, description='Directory not found')
     else:
         fl = FileList(dir_path)
         for (root, dirs, files) in os.walk(dir_path, topdown=True):
@@ -52,14 +61,14 @@ def scan():
         fl.last_timestamp = time.time()
         with open(dir_path.replace('/', '-'), "wb") as f:
             pickle.dump(fl, f)
-        return "scan"
+        return jsonify('File scanned successfully')
 
 
 @app.route("/rescan")
 def rescan():
     dir_path = request.args['dirpath']
     if not os.path.isdir(dir_path):
-        return f'The given directory is not a valid one.'
+        abort(404, description='Directory not found')
     else:
         is_scanned = False
         pickle_name_dir = dir_path.replace('/', '-')
@@ -74,7 +83,7 @@ def rescan():
                     new_fl.all_file_infos.append(FileInfo(file, file_info.st_mtime, get_sha1(pathfile)))
         new_fl.last_timestamp = time.time()
         if not is_scanned:
-            return f'The given directory was not scanned before.'
+            abort(412, description='Directory not scanned before')
         else:
             with open(pickle_name_dir, "rb") as f:
                 fl = pickle.load(f)
@@ -94,6 +103,4 @@ def rescan():
             with open(dir_path.replace('/', '-'), "wb") as f:
                 pickle.dump(new_fl, f)
 
-            json_obj = json.dumps(update_dict)
-            print(json_obj)
-            return json_obj
+            return jsonify(update_dict)
