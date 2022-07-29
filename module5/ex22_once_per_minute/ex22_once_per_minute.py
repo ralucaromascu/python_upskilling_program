@@ -1,8 +1,4 @@
 import time
-from math import trunc
-
-start_time = 0
-is_first_time = True
 
 
 class TooSoonError(Exception):
@@ -11,18 +7,17 @@ class TooSoonError(Exception):
 
 def once_per_minute(func):
     def wrapper(*args, **kwargs):
-        global start_time
-        global is_first_time
         actual_time = time.perf_counter()
-        if is_first_time is True:
-            start_time = actual_time
-            is_first_time = False
+        print(wrapper.start_time)
         print(actual_time)
-        print(start_time)
-        time_diff = actual_time-start_time
-        if trunc(time_diff) % 60 != 0:
-            raise TooSoonError(f'Too soon: Wait another {60 - time_diff % 60} seconds')
+        if (actual_time-wrapper.start_time) < 60 and wrapper.is_first_time is False:
+            raise TooSoonError(f'Too soon: Wait another {60 - (actual_time-wrapper.start_time) % 60} seconds')
+        wrapper.start_time = actual_time
+        if wrapper.is_first_time is True:
+            wrapper.is_first_time = False
         return func(*args, **kwargs)
+    wrapper.start_time = time.perf_counter()
+    wrapper.is_first_time = True
     return wrapper
 
 
