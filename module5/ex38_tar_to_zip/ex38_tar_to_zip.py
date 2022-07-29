@@ -35,6 +35,8 @@ def tar_to_zip(*tar_files, zippath=None):
             print(f"Error: {tar_file} not found")
         except IsADirectoryError:
             print(f"Error: {tar_file} is not a tar file.")
+        except Exception as e:
+            print(e)
 
 
 if __name__ == '__main__':
