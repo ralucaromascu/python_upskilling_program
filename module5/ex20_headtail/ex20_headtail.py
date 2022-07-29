@@ -5,7 +5,7 @@ import os
 def positive_int(nr):
     try:
         integer = int(nr)
-    except:
+    except ValueError:
         raise argparse.ArgumentTypeError('values for arguments -s/--start and -e/--end should be integer numbers')
     if integer <= 0:
         raise argparse.ArgumentTypeError('values for arguments -s/--start and -e/--end should be positive numbers')
