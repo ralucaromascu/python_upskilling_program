@@ -84,7 +84,7 @@ def test_one_attribute_both():
     assert repr(f) == """Replacement repr, vars = {'x': 10}"""
 
 
-def test_two_attributes_repr_only():
+def test_two_attributes_both():
     @betterrepr(newstr=replacement_str, newrepr=replacement_repr)
     class Foo():
         def __init__(self, x, y):
