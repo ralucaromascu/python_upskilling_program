@@ -7,9 +7,15 @@ from flask import Flask, request, jsonify, abort
 
 
 def get_sha1(pathfile):
+    chunk_size = 2048
+    md = hashlib.sha1()
     with open(pathfile, 'rb') as f:
-        read_content = f.read()
-    file_hashed_sha1 = hashlib.sha1(read_content).hexdigest()
+        while True:
+            chunk = f.read(chunk_size)
+            if not chunk:
+                break
+            md.update(chunk)
+        file_hashed_sha1 = md.hexdigest()
     return file_hashed_sha1
 
 
