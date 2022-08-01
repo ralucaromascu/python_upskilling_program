@@ -18,5 +18,6 @@ else:
     else:
         message = f"Updates:\nFiles added: {response['added']}\n" \
                   f"Files changed: {response['changed']}\n" \
+                  f"Files unchanged: {response['unchanged']}\n" \
                   f"Files removed: {response['removed']}"
         print(message)
