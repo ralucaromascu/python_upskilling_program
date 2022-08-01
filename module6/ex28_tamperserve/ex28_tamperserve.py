@@ -39,6 +39,7 @@ class FileList:
         self.last_timestamp = 0
 
     def scan(self):
+        self.all_file_infos = []
         for (root, dirs, files) in os.walk(self.dir_path, topdown=True):
             for file in files:
                 pathfile = os.path.join(root, file)
@@ -92,14 +93,14 @@ def rescan():
         return f'The given directory is not a valid one.'
     else:
         pickle_name_dir = dir_path.replace('/', '-')
-        new_fl = FileList(dir_path)
-        new_fl.scan()
-        if pickle_name_dir not in [file_obj.filename for file_obj in new_fl.all_file_infos]:
+        if not os.path.exists(os.path.join(dir_path,pickle_name_dir)):
             return f'The given directory was not scanned before.'
         else:
             with open(os.path.join(dir_path, pickle_name_dir), "rb") as f:
                 fl = pickle.load(f)
             update_dict = fl.rescan()
             with open(os.path.join(dir_path, dir_path.replace('/', '-')), "wb") as f:
+                new_fl = FileList(dir_path)
+                new_fl.scan()
                 pickle.dump(new_fl, f)
             return update_dict

@@ -90,7 +90,7 @@ def scan():
     else:
         fl = FileList(dir_path)
         fl.scan()
-        with open(dir_path.replace('/', '-'), "wb") as f:
+        with open(os.path.join(dir_path, dir_path.replace('/', '-')), "wb") as f:
             pickle.dump(fl, f)
         return jsonify('File scanned successfully')
 
@@ -102,16 +102,16 @@ def rescan():
         abort(404, description='Directory not found')
     else:
         pickle_name_dir = dir_path.replace('/', '-')
-        new_fl = FileList(dir_path)
-        new_fl.scan()
-        if pickle_name_dir not in [file_obj.filename for file_obj in new_fl.all_file_infos]:
+        if not os.path.exists(os.path.join(dir_path, pickle_name_dir)):
             abort(412, description='Directory not scanned before')
         else:
-            with open(pickle_name_dir, "rb") as f:
+            with open(os.path.join(dir_path, pickle_name_dir), "rb") as f:
                 fl = pickle.load(f)
 
             update_dict = fl.rescan()
-            with open(dir_path.replace('/', '-'), "wb") as f:
+            with open(os.path.join(dir_path, dir_path.replace('/', '-')), "wb") as f:
+                new_fl = FileList(dir_path)
+                new_fl.scan()
                 pickle.dump(new_fl, f)
 
             return jsonify(update_dict)
