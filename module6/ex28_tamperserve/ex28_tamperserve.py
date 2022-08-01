@@ -85,7 +85,7 @@ def scan():
         fl.scan()
         with open(os.path.join(dir_path, dir_path.replace('/', '-')), "wb") as f:
             pickle.dump(fl, f)
-        return "scan"
+        return "the given directory was successfully scanned"
 
 
 @app.route("/rescan")
@@ -94,13 +94,10 @@ def rescan():
     if not os.path.isdir(dir_path):
         return f'The given directory is not a valid one.'
     else:
-        is_scanned = False
         pickle_name_dir = dir_path.replace('/', '-')
         new_fl = FileList(dir_path)
         new_fl.scan()
-        if pickle_name_dir in [file_obj.filename for file_obj in new_fl.all_file_infos]:
-            is_scanned = True
-        if not is_scanned:
+        if pickle_name_dir not in [file_obj.filename for file_obj in new_fl.all_file_infos]:
             return f'The given directory was not scanned before.'
         else:
             with open(os.path.join(dir_path, pickle_name_dir), "rb") as f:
