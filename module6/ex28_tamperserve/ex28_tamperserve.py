@@ -54,15 +54,12 @@ class FileList:
                 pathfile = os.path.join(root, file)
                 file_info = os.stat(pathfile)
                 new_files_list.append(FileInfo(file, file_info.st_mtime, get_sha1(pathfile)))
-        for file_obj in new_files_list:
-            if file_obj not in self.all_file_infos:
-                update_dict['added'].append(getattr(file_obj, 'filename'))
-        for file_obj in self.all_file_infos:
-            if file_obj not in new_files_list:
-                update_dict['removed'].append(getattr(file_obj, 'filename'))
+
+        update_dict['added'] = [file_obj.filename for file_obj in new_files_list if file_obj not in self.all_file_infos]
+        update_dict['removed'] = [file_obj.filename for file_obj in self.all_file_infos if file_obj not in new_files_list]
         for file_obj1 in new_files_list:
             for file_obj2 in self.all_file_infos:
-                if file_obj1 == file_obj2 :
+                if file_obj1 == file_obj2:
                     if getattr(file_obj1, 'sha1') != getattr(file_obj2, 'sha1'):
                         update_dict['changed'].append(getattr(file_obj1, 'filename'))
                     else:
