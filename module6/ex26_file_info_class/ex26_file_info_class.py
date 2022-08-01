@@ -1,6 +1,7 @@
 import hashlib
 import os
 import time
+from pathlib import Path
 
 
 def get_sha1(pathfile):
@@ -18,11 +19,15 @@ def get_sha1(pathfile):
 
 class FileList:
     def __init__(self, dir_path):
-        self.dir_path = dir_path
+        self.dir_path = os.path.abspath(dir_path)
+        if not Path(self.dir_path).is_dir():
+            raise NotADirectoryError
         self.all_file_infos = []
         self.last_timestamp = 0
+        self.scan()
 
     def scan(self):
+        self.all_file_infos = []
         for (root, dirs, files) in os.walk(self.dir_path, topdown=True):
             for file in files:
                 pathfile = os.path.join(root, file)
@@ -31,7 +36,7 @@ class FileList:
         self.last_timestamp = time.time()
 
     def rescan(self):
-        update_dict = {'added': [], 'removed': [], 'changed': []}
+        update_dict = {'added': [], 'removed': [], 'changed': [], 'unchanged': []}
         new_files_list = []
         for (root, dirs, files) in os.walk(self.dir_path, topdown=True):
             for file in files:
@@ -67,8 +72,9 @@ class FileInfo:
 
 
 if __name__ == '__main__':
-    fd = FileList(os.getcwd())
+    fd = FileList("../ex25_file_info")
     fd.scan()
+    print(str(fd.all_file_infos))
     print(str(fd.last_timestamp))
     with open("new_fileee.txt", 'w') as new_f:
         new_f.write("haha")
