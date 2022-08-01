@@ -51,8 +51,11 @@ class FileList:
                 update_dict['removed'].append(getattr(file_obj, 'filename'))
         for file_obj1 in new_files_list:
             for file_obj2 in self.all_file_infos:
-                if file_obj1 == file_obj2 and getattr(file_obj1, 'sha1') != getattr(file_obj2, 'sha1'):
-                    update_dict['changed'].append(getattr(file_obj1, 'filename'))
+                if file_obj1 == file_obj2 :
+                    if getattr(file_obj1, 'sha1') != getattr(file_obj2, 'sha1'):
+                        update_dict['changed'].append(getattr(file_obj1, 'filename'))
+                    else:
+                        update_dict['unchanged'].append(getattr(file_obj1, 'filename'))
         self.all_file_infos = new_files_list
         self.last_timestamp = time.time()
         return update_dict
