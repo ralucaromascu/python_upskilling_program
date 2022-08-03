@@ -1,7 +1,9 @@
 import hashlib
 import os
+import pickle
 import time
-from pathlib import Path
+
+from flask import Flask, request
 
 
 def get_sha1(pathfile):
@@ -17,14 +19,24 @@ def get_sha1(pathfile):
     return file_hashed_sha1
 
 
+class FileInfo:
+    def __init__(self, filename, mtime, sha1):
+        self.filename = filename
+        self.mtime = mtime
+        self.sha1 = sha1
+
+    def __str__(self):
+        return f'FileInfo for {self.filename}, mtime {self.mtime}, sha1 {self.sha1}'
+
+    def __eq__(self, other):
+        return type(other) == type(self) and self.filename == other.filename
+
+
 class FileList:
     def __init__(self, dir_path):
         self.dir_path = os.path.abspath(dir_path)
-        if not Path(self.dir_path).is_dir():
-            raise NotADirectoryError
         self.all_file_infos = []
         self.last_timestamp = 0
-        self.scan()
 
     def scan(self):
         self.all_file_infos = []
@@ -58,26 +70,37 @@ class FileList:
         return update_dict
 
 
-class FileInfo:
-    def __init__(self, filename, mtime, sha1):
-        self.filename = filename
-        self.mtime = mtime
-        self.sha1 = sha1
-
-    def __str__(self):
-        return f'FileInfo for {self.filename}, mtime {self.mtime}, sha1 {self.sha1}'
-
-    def __eq__(self, other):
-        return type(other) == type(self) and self.filename == other.filename
+app = Flask(__name__)
 
 
-if __name__ == '__main__':
-    fd = FileList("../ex25_file_info")
-    fd.scan()
-    print(str(fd.all_file_infos))
-    print(str(fd.last_timestamp))
-    with open("new_fileee.txt", 'w') as new_f:
-        new_f.write("haha")
-    time.sleep(3)
-    fd.rescan()
-    print(str(fd.last_timestamp))
+@app.route("/scan")
+def scan():
+    dir_path = request.args['dirpath']
+    if not os.path.isdir(dir_path):
+        return f'The given directory is not a valid one.'
+    else:
+        fl = FileList(dir_path)
+        fl.scan()
+        with open(os.path.join(dir_path, dir_path.replace('/', '-')), "wb") as f:
+            pickle.dump(fl, f)
+        return "the given directory was successfully scanned"
+
+
+@app.route("/rescan")
+def rescan():
+    dir_path = request.args['dirpath']
+    if not os.path.isdir(dir_path):
+        return f'The given directory is not a valid one.'
+    else:
+        pickle_name_dir = dir_path.replace('/', '-')
+        if not os.path.exists(os.path.join(dir_path,pickle_name_dir)):
+            return f'The given directory was not scanned before.'
+        else:
+            with open(os.path.join(dir_path, pickle_name_dir), "rb") as f:
+                fl = pickle.load(f)
+            update_dict = fl.rescan()
+            with open(os.path.join(dir_path, dir_path.replace('/', '-')), "wb") as f:
+                new_fl = FileList(dir_path)
+                new_fl.scan()
+                pickle.dump(new_fl, f)
+            return update_dict
