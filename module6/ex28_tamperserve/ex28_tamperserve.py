@@ -34,7 +34,7 @@ class FileInfo:
 
 class FileList:
     def __init__(self, dir_path):
-        self.dir_path = dir_path
+        self.dir_path = os.path.abspath(dir_path)
         self.all_file_infos = []
         self.last_timestamp = 0
 

@@ -3,7 +3,7 @@ import os
 import pickle
 import time
 
-from flask import Flask, request, jsonify, abort
+from flask import Flask, request, jsonify, abort, render_template
 
 
 def get_sha1(pathfile):
@@ -34,7 +34,7 @@ class FileInfo:
 
 class FileList:
     def __init__(self, dir_path):
-        self.dir_path = dir_path
+        self.dir_path = os.path.abspath(dir_path)
         self.all_file_infos = []
         self.last_timestamp = 0
 
@@ -56,7 +56,8 @@ class FileList:
                 new_files_list.append(FileInfo(file, file_info.st_mtime, get_sha1(pathfile)))
 
         update_dict['added'] = [file_obj.filename for file_obj in new_files_list if file_obj not in self.all_file_infos]
-        update_dict['removed'] = [file_obj.filename for file_obj in self.all_file_infos if file_obj not in new_files_list]
+        update_dict['removed'] = [file_obj.filename for file_obj in self.all_file_infos if
+                                  file_obj not in new_files_list]
         for file_obj1 in new_files_list:
             for file_obj2 in self.all_file_infos:
                 if file_obj1 == file_obj2:
@@ -93,6 +94,7 @@ def scan():
         with open(os.path.join(dir_path, dir_path.replace('/', '-')), "wb") as f:
             pickle.dump(fl, f)
         return jsonify('File scanned successfully')
+        # return render_template("scan.html", dir_path=dir_path)
 
 
 @app.route("/rescan")
